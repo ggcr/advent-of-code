@@ -46,12 +46,11 @@ def solve_part1(points: list[Point3D], steps: int) -> int:
             # form a new group
             C[i], C[j] = current_color, current_color
             current_color += 1
-        elif C[i] < 0:
-            # merge point i to point j group
-            C[i] = C[j]
-        elif C[j] < 0:
-            # merge point j to point i group
-            C[j] = C[i]
+        elif C[i] < 0 or C[j] < 0:
+            # merge point to group
+            color = max(C[i], C[j])
+            C[i] = color
+            C[j] = color
         else:
             # merge two groups
             ci, cj = C[i], C[j]
@@ -88,12 +87,10 @@ def solve_part2(points: list[Point3D]) -> int:
             # form a new group
             C[i], C[j] = current_color, current_color
             current_color += 1
-        elif C[i] < 0:
-            # merge point i to point j group
-            C[i] = C[j]
-        elif C[j] < 0:
-            # merge point j to point i group
-            C[j] = C[i]
+        elif C[i] < 0 or C[j] < 0:
+            # merge point to group
+            C[i] = max(C[i], C[j])
+            C[j] = max(C[i], C[j])
         else:
             # merge two groups
             ci, cj = C[i], C[j]
